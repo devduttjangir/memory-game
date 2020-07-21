@@ -119,31 +119,35 @@ const Game = () => {
     grids.splice(cardIndex, 1, gridObject);
     setGrids([...grids]);
     setactiveCount(activeCount + 1);
-    checkAndResetCards(gridObject, cardIndex);
+    checkForMatchedCards(gridObject, cardIndex);
+    checkAndResetCards();
     setAttempt(attempt + 1);
   };
 
-  const checkAndResetCards = (gridObject, cardIndex) => {
+  const checkAndResetCards = () => {
+    if (activeCount >= 2) {
+      resetCards();
+    }
+  };
+
+  const checkForMatchedCards = (activeObject, activeIndex) => {
     const selectedCards = grids.filter(
       (card) =>
         card.faceDown === false &&
-        card.title === gridObject.title &&
-        card.id !== gridObject.id
+        card.title === activeObject.title &&
+        card.id !== activeObject.id
     );
     if (selectedCards.length > 0) {
       // card matched
-      const firstCard = { ...gridObject, isMatched: true };
+      const firstCard = { ...activeObject, isMatched: true };
       const secondCard = { ...selectedCards[0], isMatched: true };
       const secondCardIndex = grids.findIndex(
         (grid) => grid.id === secondCard.id
       );
-      grids.splice(cardIndex, 1, firstCard);
+      grids.splice(activeIndex, 1, firstCard);
       grids.splice(secondCardIndex, 1, secondCard);
       setGrids([...grids]);
       setScore(score + 10);
-    }
-    if (activeCount >= 2) {
-      resetCards();
     }
   };
 
