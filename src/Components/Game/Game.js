@@ -183,7 +183,6 @@ const Game = () => {
       );
     });
   };
-
   return (
     <Container>
       <Row>
