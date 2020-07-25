@@ -1,7 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 
-const Repo = () => {
+import RepoCell from "./RepoCell";
+
+const Repo = (props) => {
   const [repos, setRepos] = useState([]);
   const [count, setCount] = useState(0);
 
@@ -17,7 +19,7 @@ const Repo = () => {
   };
 
   useEffect(() => {
-    getCollections();
+    // getCollections();
   }, []);
 
   // like componentDidUpdate + componentDidMount
@@ -54,6 +56,11 @@ const Repo = () => {
       <Row>
         <Col onClick={() => handleClick()}>Click Here {count}</Col>
         <Col onClick={() => handleRepo()}>Repo Here {count}</Col>
+      </Row>
+      <Row>
+        <Col>
+          <RepoCell />
+        </Col>
       </Row>
       {renderRepos()}
     </Container>
